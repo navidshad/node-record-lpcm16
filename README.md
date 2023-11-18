@@ -38,6 +38,7 @@ thresholdStart        : null   // silence threshold to start recording, override
 thresholdEnd          : null   // silence threshold to end recording, overrides threshold (rec only)
 silence               : '1.0'  // seconds of silence before ending
 recorder              : 'sox'  // Defaults to 'sox'
+recorderPath          : ''     // The directory path for the recorder, default is global recorder installed on the environment.
 device                : null   // recording device (e.g.: 'plughw:1')
 audioType             : 'wav'  // audio type to record
 ```

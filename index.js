@@ -16,6 +16,7 @@ class Recording {
       thresholdEnd: null,
       silence: '1.0',
       recorder: 'sox',
+      recorderPath: '',
       endOnSilence: false,
       audioType: 'wav'
     }
@@ -25,7 +26,7 @@ class Recording {
     const recorder = recorders.load(this.options.recorder)
     const { cmd, args, spawnOptions = {} } = recorder(this.options)
 
-    this.cmd = cmd
+    this.cmd = this.options.recorderPath || '' + cmd
     this.args = args
     this.cmdOptions = Object.assign({ encoding: 'binary', stdio: 'pipe' }, spawnOptions)
 
