@@ -1,3 +1,5 @@
+To understand how to use and why I forked this: https://stackoverflow.com/a/77510406/3969006
+
 # node-record-lpcm-16
 
 Records a 16-bit signed-integer linear pulse modulation code WAV audio file.
@@ -8,7 +10,7 @@ These audio files are fully compatible with both the [Google Speech to Text API 
 
 ## Installation
 
-`npm install node-record-lpcm16`
+`yarn add https://github.com/navidshad/node-record-lpcm16`
 
 ## Dependencies
 
