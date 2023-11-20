@@ -17,6 +17,7 @@ class Recording {
       silence: '1.0',
       recorder: 'sox',
       recorderPath: '',
+      execFile: null,
       endOnSilence: false,
       audioType: 'wav'
     }
@@ -30,7 +31,7 @@ class Recording {
       this.options.recorderPath += '/'
     }
 
-    this.cmd = this.options.recorderPath + cmd
+    this.cmd = this.options.recorderPath + (this.execFile || cmd)
     this.args = args
     this.cmdOptions = Object.assign({ encoding: 'binary', stdio: 'pipe' }, spawnOptions)
 

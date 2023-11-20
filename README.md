@@ -41,6 +41,7 @@ thresholdEnd          : null   // silence threshold to end recording, overrides 
 silence               : '1.0'  // seconds of silence before ending
 recorder              : 'sox'  // Defaults to 'sox'
 recorderPath          : ''     // The directory path for the recorder, default is global recorder installed on the environment.
+execFile              : null   // The execute file name, default is 'recorder' value, but you might need to define it for windows os, example: `sox.exe`
 device                : null   // recording device (e.g.: 'plughw:1')
 audioType             : 'wav'  // audio type to record
 ```
