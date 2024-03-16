@@ -28,11 +28,12 @@ class Recording {
     const recorder = recorders.load(this.options.recorder);
     const { cmd, args, spawnOptions = {} } = recorder(this.options);
 
-    if (this.options.recorderPath?.endsWith("/") === false) {
-      this.options.recorderPath += path.sep;
-    }
+    this.cmd = path.join(
+      this.options.recorderPath,
+      this.options.execFile || cmd
+    );
+    this.cmd = path.resolve(this.cmd);
 
-    this.cmd = this.options.recorderPath + (this.execFile || cmd);
     this.args = args;
     this.cmdOptions = Object.assign(
       { encoding: "binary", stdio: "pipe" },
@@ -52,6 +53,9 @@ class Recording {
     const cp = spawn(cmd, args, cmdOptions);
     const rec = cp.stdout;
     const err = cp.stderr;
+    let errorDetails = "";
+
+    err.setEncoding("utf8");
 
     this.process = cp; // expose child process
     this._stream = rec; // expose output stream
@@ -60,13 +64,17 @@ class Recording {
       if (code === 0) return;
       rec.emit(
         "error",
-        `${this.cmd} has exited with error code ${code}.
+        `
+Error Detail: ${errorDetails}\n${err.read()}
 
-Enable debugging with the environment variable DEBUG=record.`
+${this.cmd} has exited with error code ${code}.
+Enable debugging with the environment variable DEBUG=record.
+`
       );
     });
 
     err.on("data", (chunk) => {
+      errorDetails += chunk;
       debug(`STDERR: ${chunk}`);
     });
 
